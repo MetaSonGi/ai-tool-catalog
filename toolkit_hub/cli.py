@@ -38,7 +38,7 @@ def _print_json(obj) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="hyoki-toolkit-hub",
+        prog="ai-tool-catalog",
         description="로컬 우선 AI 도구 카탈로그 + 프로젝트 기능 매핑 + 지속 개발 보드",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")

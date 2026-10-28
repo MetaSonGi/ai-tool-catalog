@@ -1,4 +1,4 @@
-# hyoki-toolkit-hub
+# ai-tool-catalog
 
 Local-first AI tool catalog, project feature mapping and persistent development board. Python standard library, Korean UI.
 
@@ -49,6 +49,22 @@ python3 main.py --data /tmp/hub-test.json catalog list
 
 `python3 -m toolkit_hub --help` 로도 실행할 수 있다.
 
+## 로컬 웹 UI (127.0.0.1 전용, Python 표준 라이브러리만)
+
+```bash
+python3 -m toolkit_hub.web --data data/hub.json --port 8767
+# 브라우저에서 http://127.0.0.1:8767 접속
+```
+
+- 기능: 카탈로그 목록·검색·추가·삭제, 보드 목록·추가·상태 이동,
+  매핑 목록·추가. 검증·검색·저장 로직은 기존 CLI 모듈
+  (`catalog.py`·`board.py`·`mapping.py`·`store.py`)을 그대로 재사용하고,
+  웹용으로 중복 구현하지 않았다.
+- 이 서버는 127.0.0.1 전용이다. 외부 노출용으로 바인드 주소를 바꾸지 마세요.
+- **이 웹 UI는 GitHub Pages용이 아니다.** Pages는 정적 사이트라 Python
+  서버가 돌아가지 않는다. 로컬에서만 쓰는 UI다.
+- 웹 UI 추가분은 로컬 작업본에만 있으며, GitHub에는 푸시하지 않았다.
+
 ## 데이터 형식
 
 `data/hub.json` (또는 `--data` 경로)은 다음 3개 목록을 가진 JSON이다.
@@ -89,16 +105,19 @@ python3 -m unittest discover -s tests -v
 | `main.py` | CLI 진입점 |
 | `toolkit_hub/__init__.py` | 버전 정보 |
 | `toolkit_hub/cli.py` | argparse CLI (한국어 도움말·오류) |
+| `toolkit_hub/web.py` | 로컬 웹 UI (127.0.0.1 전용, 표준 라이브러리만) |
 | `toolkit_hub/catalog.py` | 도구 카탈로그 검증·검색 |
 | `toolkit_hub/mapping.py` | 프로젝트 기능 매핑 검증 |
 | `toolkit_hub/board.py` | 개발 보드 상태 관리 |
 | `toolkit_hub/store.py` | 로컬 JSON 저장·불러오기 |
-| `tests/test_*.py` | 단위·CLI 통합 테스트 |
+| `tests/test_*.py` | 단위·CLI 통합·웹 테스트 |
 | `examples/sample_data.json` | 합성 예시 데이터 |
 
 ## 남은 한계
 
-- 웹 UI가 없다. CLI만 있다 (원본 설명의 "한국어 UI"는 CLI 한국어 메시지로 구현).
+- 로컬 웹 UI가 추가됐으나, GitHub Pages용 정적 사이트는 아니다.
+  Python 서버를 로컬에서 실행해야만 웹 UI가 열린다.
+- 웹 UI는 한 명이 로컬에서 쓰는 용도다. 다중 사용자·동시 쓰기 잠금이 없다.
 - 실제 AI 도구 연동·모델 호출이 없다. 카탈로그는 사람이 채우는 목록이다.
 - 다중 사용자·동시 쓰기 잠금이 없다. 한 번에 한 명이 로컬에서 쓰는 용도다.
 - 원본 저장소에 있던 것은 README 1개뿐이므로, 이 구현은 기존 코드 구조 변경이 아니라
