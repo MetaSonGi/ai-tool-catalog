@@ -5,7 +5,7 @@ Local-first AI tool catalog, project feature mapping and persistent development 
 > 원본 저장소 설명 문장 그대로 유지. 원본 저장소(2026-10-25 생성, 커밋 1개)에는
 > 이 문장 2줄짜리 README.md 1개 파일만 있었고, 코드·테스트·CLI가 전혀 없었다.
 > 이 작업본은 그 설명을 실제로 동작하는 최소 구현으로 채운 로컬 작업본이다.
-> GitHub에는 푸시하지 않았다. 푸시 여부는 사용자가 나중에 결정한다.
+> 현재 GitHub 저장소(MetaSonGi/ai-tool-catalog)에 올라가 있다.
 
 ## 무엇을 하는지
 
@@ -63,7 +63,7 @@ python3 -m toolkit_hub.web --data data/hub.json --port 8767
 - 이 서버는 127.0.0.1 전용이다. 외부 노출용으로 바인드 주소를 바꾸지 마세요.
 - **이 웹 UI는 GitHub Pages용이 아니다.** Pages는 정적 사이트라 Python
   서버가 돌아가지 않는다. 로컬에서만 쓰는 UI다.
-- 웹 UI 추가분은 로컬 작업본에만 있으며, GitHub에는 푸시하지 않았다.
+- 웹 UI도 GitHub 저장소에 포함되어 있다.
 
 ## 데이터 형식
 
@@ -94,6 +94,8 @@ python3 -m toolkit_hub.web --data data/hub.json --port 8767
 python3 -m unittest discover -s tests -v
 ```
 
+2026-11-02 재확인: 22개 테스트 통과 (Python 3.13, Linux).
+
 외부 모델이 필요한 부분은 없다. 모든 테스트는 합성 데이터와 임시 디렉터리만 쓰며,
 실제 모델·네트워크 검증은 이 프로젝트에 존재하지 않으므로 '미검증'으로 남긴다
 (검증 대상 자체가 없음 — 과장하지 않는다).
@@ -119,6 +121,5 @@ python3 -m unittest discover -s tests -v
   Python 서버를 로컬에서 실행해야만 웹 UI가 열린다.
 - 웹 UI는 한 명이 로컬에서 쓰는 용도다. 다중 사용자·동시 쓰기 잠금이 없다.
 - 실제 AI 도구 연동·모델 호출이 없다. 카탈로그는 사람이 채우는 목록이다.
-- 다중 사용자·동시 쓰기 잠금이 없다. 한 번에 한 명이 로컬에서 쓰는 용도다.
 - 원본 저장소에 있던 것은 README 1개뿐이므로, 이 구현은 기존 코드 구조 변경이 아니라
   신규 최소 구현이다. 실제 도구 목록은 사용자가 직접 채워야 한다.
